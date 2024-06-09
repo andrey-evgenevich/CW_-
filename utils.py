@@ -1,11 +1,49 @@
 from json import load
-from settings import OPERATIONS_PATH
+from datetime import datetime
 
 
 def load_operations(path):
     """Преобразует файл из json в читаемый формат"""
     with open(path, encoding="utf-8") as file:
-        return load(file)
+        operations = load(file)
+        return operations
 
 
-print(load_operations(OPERATIONS_PATH))
+def sorted_operations(operations_list):
+    """
+    Сортировка операций по дате в обратном порядке
+    """
+    return sorted(operations_list, key=lambda x: x.get('date', ''), reverse=True)
+
+
+def execuded_operation(operations_list):
+    """
+    Создание списка обработанных операций
+    """
+    operations = []
+    for o in operations_list:
+        if not o.get('from'):
+            continue
+        if o.get('state') == 'EXECUTED':
+            date_str = o.get('date', '')
+            if date_str:
+                date = datetime.strptime(date_str, "%Y-%m-%dT%H:%M:%S.%f")
+                formatted_date = date.strftime('%d.%m.%Y')
+                operations.append({
+                    'date': formatted_date,
+                    'description': o.get('description', ''),
+                    'from': o.get('from', ''),
+                    'to': o.get('to', ''),
+                    'operationAmount': o.get('operationAmount', {}).get('amount', ''),
+                    'currency': o.get('operationAmount', {}).get('currency', {}).get('name', '')
+                })
+    return operations
+
+
+def five(operation):
+    """Возвращает список из пяти последних операций"""
+    five_last = []
+    while len(five_last) < 5:
+        for op in operation:
+            five_last.append(op)
+    return five_last
