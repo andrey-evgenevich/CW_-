@@ -16,7 +16,7 @@ def sorted_operations(operations_list):
     return sorted(operations_list, key=lambda x: x.get('date', ''), reverse=True)
 
 
-def execuded_operation(operations_list):
+def executed_operation(operations_list):
     """
     Создание списка обработанных операций
     """
@@ -42,8 +42,5 @@ def execuded_operation(operations_list):
 
 def five(operation):
     """Возвращает список из пяти последних операций"""
-    five_last = []
-    while len(five_last) < 5:
-        for op in operation:
-            five_last.append(op)
+    five_last = operation[0: 5]
     return five_last
