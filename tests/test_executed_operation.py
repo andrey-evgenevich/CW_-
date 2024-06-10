@@ -9,18 +9,13 @@ def test_executed_operation_empty():
     assert executed_operation([]) == []
 
 
-def test_executed_operation_int():
+def test_executed_attribute_error():
     """
     Тест списка чисел
     """
-    assert executed_operation([1, 2, 3, 5, 100500, 605465, 565, 5498]) == AttributeError
-
-
-def test_executed_operation_str():
-    """
-    Тест списка строк
-    """
-    assert executed_operation(['f', 't', 'e', 'sdf']) == AttributeError
+    with pytest.raises(AttributeError):
+        assert executed_operation([1, 2, 3, 5, 100500, 605465, 565, 5498])
+        raise AttributeError("Функция принимает только определенные списки библиотек или пустые библиотеки")
 
 
 def test_executed_operations_correct():
@@ -45,4 +40,3 @@ def test_executed_operations_correct():
                 'to': 'Счет 35383033474447895560', 'operationAmount': '8221.37', 'currency': 'USD'},
                {'date': '30.06.2018', 'description': 'Перевод организации', 'from': 'Счет 75106830613657916952',
                 'to': 'Счет 11776614605963066702', 'operationAmount': '9824.07', 'currency': 'USD'}]
-

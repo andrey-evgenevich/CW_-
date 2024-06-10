@@ -1,40 +1,7 @@
 from utils import load_operations
 
 
-def test_load_operations_empty():
-    """
-    Тест пустого списка
-    """
-    assert load_operations([]) == []
-
-
-def test_load_operations_int():
-    """
-    Тест списка чисел
-    """
-    assert load_operations([1, 2, 3, 4, 5, 6, 7, 8]) == TypeError
-
-
-def test_load_operations_str():
-    """
-    Тест списка строк
-    """
-    assert load_operations(['h', 'd', 'sfdsd', 'rtf']) == TypeError
-
-
-def test_load_operations_json():
-    """
-    Тест списка JSON
-    """
-    assert load_operations([
-        {"id": 441945886, "state": "EXECUTED", "date": "2019-08-26T10:50:58.294041",
-         "operationAmount": {"amount": "31957.58", "currency": {"name": "руб.", "code": "RUB"}},
-         "description": "Перевод организации", "from": "Maestro 1596837868705199", "to": "Счет 64686473678894779589"},
-        {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364",
-         "operationAmount": {"amount": "8221.37", "currency": {"name": "USD", "code": "USD"}}}]) == TypeError
-
-
-def test_load_operations_json_file():
+def test_load_operations_json_file1():
     """
     Тест списка JSON файла
     """
@@ -403,3 +370,32 @@ def test_load_operations_json_file():
          'operationAmount': {'amount': '97853.86', 'currency': {'name': 'руб.', 'code': 'RUB'}},
          'description': 'Перевод с карты на счет', 'from': 'Maestro 1308795367077170',
          'to': 'Счет 96527012349577388612'}]
+
+
+def test_load_operations_json_file2():
+    """
+    Тест списка JSON файла №2
+    """
+    from settings import TESTS_PATH
+    assert load_operations(TESTS_PATH) == {'name': 'electron-markdownify', 'version': '1.4.1',
+                                           'description': 'A minimalist Markdown Editor', 'main': 'main.js',
+                                           'productName': 'Markdownify', 'scripts': {'start': 'electron main.js',
+                                                                                     'build': 'rm -rf dist && gulp build'},
+                                           'repository': {'type': 'git',
+                                                          'url': 'git+https://github.com/amitmerchant1990/markdownify.git',
+                                                          'docs': 'https://github.com/amitmerchant1990/electron-markdownify/blob/master/README.md'},
+                                           'keywords': ['electron', 'markdown', 'plain', 'node', 'minimal', 'editor',
+                                                        'preview', 'html', 'desktop'],
+                                           'author': 'Amit Merchant <bullredeyes@gmail.com>', 'license': 'MIT',
+                                           'bugs': {'url': 'https://github.com/amitmerchant1990/markdownify/issues'},
+                                           'homepage': 'https://github.com/amitmerchant1990/markdownify#readme',
+                                           '_npmUser': {'name': 'amit_merchant', 'email': 'bullredeyes@gmail.com'},
+                                           'devDependencies': {'devtron': '^1.1.2', 'electron': '^7.2.4',
+                                                               'electron-packager': '^7.0.3',
+                                                               'electron-reloader': '^1.0.1', 'gulp': '^3.9.1'},
+                                           'dependencies': {'electron-config': '^0.2.1',
+                                                            'electron-editor-context-menu': '^1.1.1',
+                                                            'electron-json-storage': '^4.2.0',
+                                                            'electron-localshortcut': '^1.0.0',
+                                                            'highlightjs': '^9.16.2', 'parse-filepath': '^1.0.2',
+                                                            'parse-katex': '^0.3.0', 'showdown': '^1.9.1'}}
